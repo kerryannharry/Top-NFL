@@ -1,0 +1,5 @@
+#!/usr/bin/env 
+
+require_relative "../lib/nfls_best"
+
+NflsBest::CLI.new.start
