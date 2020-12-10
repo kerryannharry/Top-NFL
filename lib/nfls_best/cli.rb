@@ -26,7 +26,7 @@ class NflsBest::CLI
     def personal
         input = nil
         while input != "exit"
-            puts "Enter your team to find rank:"
+            puts "Enter your team to find rank then enter exit when done:"
 
             input = gets.strip.downcase
             case input
