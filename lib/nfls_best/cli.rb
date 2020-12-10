@@ -5,12 +5,17 @@ class NflsBest::CLI
     Scraper.top_teams
     team
     players
-    personal
+    my_team
     goodbye
     end
 
     def team
     puts "NFL's Top Teams"
+    puts <<-DOC.gsub /^\s*/,''
+            1. New Orleans Saints
+            2. Atlanta Falcons
+            3. Baltimore Ravens
+        DOC
     @teams = NflsBest::Team.all
     end
 
@@ -21,9 +26,10 @@ class NflsBest::CLI
         2. Aaron Donald
         3. Lamar Jackson
         DOC
+        @players = NflsBest::Player.all
     end
 
-    def personal
+    def my_team
         input = nil
         while input != "exit"
             puts "Enter your team to find rank then enter exit when done:"
@@ -41,6 +47,25 @@ class NflsBest::CLI
              end
         end
     end
+
+    def my_player
+        input = nil
+        while input != "exit"
+            puts "Enter your player to find rank then enter exit when done:"
+
+            input = gets.strip.downcase
+            case input
+            when "Patrick Mahomes"
+                puts "Rank: 1"
+            when "Aaron Donald"
+                 puts "Rank: 2"
+            when "Lamar Jackson"
+                puts "Rank: 3"
+            else 
+                puts "Player not ranked."
+             end
+        end
+        end
 
     def goodbye
         puts "It Takes All Of Us: End Racism"
