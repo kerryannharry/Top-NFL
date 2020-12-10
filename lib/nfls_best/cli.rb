@@ -2,7 +2,7 @@ class NflsBest::CLI
 
     def start
     puts "The NFL'S Best!"
-    Scraper.top_teams
+    # Scraper.top_teams
     team
     players
     my_team
@@ -26,7 +26,7 @@ class NflsBest::CLI
         2. Aaron Donald
         3. Lamar Jackson
         DOC
-        @players = NflsBest::Player.all
+        # @players = NflsBest::Player.all
     end
 
     def my_team
