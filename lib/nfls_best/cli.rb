@@ -2,6 +2,7 @@ class NflsBest::CLI
 
     def start
     puts "The NFL'S Best!"
+    Scraper.top_teams
     team
     players
     personal

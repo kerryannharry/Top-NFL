@@ -9,6 +9,9 @@ GEM
     coderay (1.1.3)
     diff-lcs (1.4.4)
     method_source (1.0.0)
+    mini_portile2 (2.4.0)
+    nokogiri (1.10.10)
+      mini_portile2 (~> 2.4.0)
     pry (0.13.1)
       coderay (~> 1.1)
       method_source (~> 1.0)
@@ -32,6 +35,7 @@ PLATFORMS
 
 DEPENDENCIES
   nfls_best!
+  nokogiri
   pry
   rake (~> 12.0)
   rspec (~> 3.10)
