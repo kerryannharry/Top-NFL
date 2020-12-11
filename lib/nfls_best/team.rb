@@ -1,40 +1,29 @@
 class NflsBest::Team
-attr_accessor :name, :rank
+attr_accessor :name, :rank, :description
 
 @@all = []
     def self.all
         @@all
     end
 
-    def initialize(name, rank)
+    def initialize(name, rank = "not top 10", description = nil)
         self.name = name
         self.rank = rank
+        self.description = description
         @@all << self 
     end
 
     def self.display_teams
-    # should return all teams
-     puts <<-DOC.gsub /^\s*/,''
-            1. New Orleans Saints
-            2. Atlanta Falcons
-            3. Baltimore Ravens
-        DOC
-        all.each.with_index(1) do |team,i| 
-            puts "#{i}. #{team.name}"
+        rank_teams = all.select {|team| team.rank != "not top 10"}
+        rank_teams.sort_by {|t| t.rank.to_i}.each do |team| 
+            puts "#{team.rank}. #{team.name}"
         end
-        # team_1 = self.new
-        # team_1.name = "New Orleans Saints"
-        # team_1.rank = "1"
-
-        # team_2 = self.new
-        # team_2.name = "Atlanta Falcons"
-        # team_2.rank = "2"
-
-        # team_3 = self.new
-        # team_3.name = "Baltimore Ravens"
-        # team_3.rank = "3"
-
-        # [team_1, team_2, team_3]
+    end
+    def self.find_by_name(name)
+        self.all.find {|team| team.name.downcase == name.downcase}
+    end
+    def self.find_or_create_by_name(name)
+        self.find_by_name(name) || self.new(name)
     end
     
     end

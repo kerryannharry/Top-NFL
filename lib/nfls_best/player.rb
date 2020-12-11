@@ -1,5 +1,5 @@
-class NflBest::Player
-    attr_accessor :name, :rank
+class NflsBest::Player
+    attr_accessor :name, :rank, :team, :bio
 
     @@all = []
 
@@ -7,19 +7,17 @@ class NflBest::Player
         @@all
     end
 
-    def initialize(name, rank)
+    def initialize(name, rank, team, bio = nil)
         self.name = name
         self.rank = rank
-        @@all << self 
+        self.team = team
+        self.bio = bio
+        self.class.all << self 
     end
 
     def self.display_players
-        puts <<-DOC.gsub /^\s*/,''
-        1. Patrick Mahomes
-        2. Aaron Donald
-        3. Lamar Jackson
-        DOC
-        all.each.with_index(1) do |player,i| 
-            puts "#{i}. #{player.name}"
+        all.sort_by {|p| p.rank.to_i}.each do |player| 
+            puts "#{player.rank}. #{player.name}"
+        end
     end
 end

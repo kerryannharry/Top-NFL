@@ -1,51 +1,40 @@
 class NflsBest::CLI
 
     def start
-    puts "The NFL'S Best!"
-    # Scraper.top_teams
-    team
-    players
+    welcome
     my_team
+    teams
     goodbye
     end
-
-    def team
-    puts "NFL's Top Teams"
-    puts <<-DOC.gsub /^\s*/,''
-            1. New Orleans Saints
-            2. Atlanta Falcons
-            3. Baltimore Ravens
-        DOC
-    @teams = NflsBest::Team.all
+    def welcome
+        puts "The NFL'S Best!"
+        @teams = Scraper.top_teams
+        Scraper.top_players
     end
-
-    def players
-        puts "NFLS's Top Players"
-        puts <<-DOC.gsub /^\s*/,''
-        1. Patrick Mahomes
-        2. Aaron Donald
-        3. Lamar Jackson
-        DOC
-        # @players = NflsBest::Player.all
+    def teams
+    puts "NFL's Top Teams"
+    NflsBest::Team.display_teams
     end
 
     def my_team
         input = nil
         while input != "exit"
             puts "Enter your team to find rank then enter exit when done:"
-
+            
             input = gets.strip.downcase
-            case input
-            when "New Orleans Saints"
-                puts "Rank: 1"
-            when "Atlanta Falcons"
-                 puts "Rank: 2"
-            when "Baltimore Ravens"
-                puts "Rank: 3"
+            @team = NflsBest::Team.find_by_name(input)
+            if @team != nil 
+                display_team_data
             else 
                 puts "Team not ranked."
              end
         end
+    end
+
+    def display_team_data
+        puts @team.name
+        puts @team.rank
+        puts @team.description
     end
 
     def my_player
