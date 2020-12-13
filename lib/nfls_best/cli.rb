@@ -4,16 +4,24 @@ class NflsBest::CLI
     welcome
     my_team
     teams
+    my_player
+    players
     goodbye
     end
     def welcome
         puts "The NFL'S Best!"
         @teams = Scraper.top_teams
-        Scraper.top_players
+        @players = Scraper.top_players
     end
+
     def teams
     puts "NFL's Top Teams"
     NflsBest::Team.display_teams
+    end
+
+    def players
+        puts "NFL'S Top Players"
+        NflsBest::Player.display_players
     end
 
     def my_team
@@ -43,18 +51,21 @@ class NflsBest::CLI
             puts "Enter your player to find rank then enter exit when done:"
 
             input = gets.strip.downcase
-            case input
-            when "Patrick Mahomes"
-                puts "Rank: 1"
-            when "Aaron Donald"
-                 puts "Rank: 2"
-            when "Lamar Jackson"
-                puts "Rank: 3"
+            @player = NflsBest::Player.find_by_name(input)
+            if @player != nil 
+                display_player_data
             else 
                 puts "Player not ranked."
              end
         end
-        end
+     end
+
+     def display_player_data
+        puts @player.name
+        puts @player.rank
+        puts @player.team
+        puts @player.bio
+    end
 
     def goodbye
         puts "It Takes All Of Us: End Racism"

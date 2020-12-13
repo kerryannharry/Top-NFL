@@ -7,7 +7,7 @@ class NflsBest::Player
         @@all
     end
 
-    def initialize(name, rank, team, bio = nil)
+    def initialize(name, rank, team, bio)
         self.name = name
         self.rank = rank
         self.team = team
@@ -19,5 +19,13 @@ class NflsBest::Player
         all.sort_by {|p| p.rank.to_i}.each do |player| 
             puts "#{player.rank}. #{player.name}"
         end
+    end
+
+    def self.find_by_name(name)
+        self.all.find {|player| player.name.downcase == name.downcase}
+    end
+
+    def self.find_or_create_by_name(name)
+        self.find_by_name(name) || self.new(name)
     end
 end
