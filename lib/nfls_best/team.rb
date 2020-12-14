@@ -19,6 +19,15 @@ attr_accessor :name, :rank, :description
             puts "#{team.rank}. #{team.name}"
         end
     end
+
+    def self.display_grid_of_teams(team)
+        teams_table = TTY::Table.new(header: ["Rank", "Team Name"])
+        team.each.with_index(1) do |team, rank| 
+            teams_table << ["#{team.rank}".red, "#{team.name}"]
+        end
+        puts teams_table.render(:unicode)
+    end
+
     def self.find_by_name(name)
         self.all.find {|team| team.name.downcase == name.downcase}
     end

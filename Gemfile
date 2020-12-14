@@ -7,3 +7,4 @@ gem "rake", "~> 12.0"
 gem "rspec", "~> 3.10"
 gem "pry"
 gem "nokogiri"
+gem 'tty-table'

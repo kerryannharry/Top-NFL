@@ -9,7 +9,17 @@ class NflsBest::CLI
     goodbye
     end
     def welcome
-        puts "The NFL'S Best!"
+        puts "*****************************************************************"
+        puts "***                                                           ***"
+        puts "***                                                           ***"
+        puts "***                 The NFL'S Top 10 Best!                    ***"
+        puts "***                         2020                              ***"
+        puts "***                                                           ***"
+        puts "***        'Ability is what you’re capable of doing.          ***"
+        puts "***   Motivation determines what you do. Attitude determines  ***"
+        puts "***        determines how well you do it.' –Lou Holtz         ***"
+        puts "***                                                           ***"
+        puts "*****************************************************************"
         @teams = Scraper.top_teams
         @players = Scraper.top_players
     end
@@ -27,7 +37,7 @@ class NflsBest::CLI
     def my_team
         input = nil
         while input != "exit"
-            puts "Enter your team to find rank then enter exit when done:"
+            puts "Enter your team's name to dicover their rank then enter exit when done:"
             
             input = gets.strip.downcase
             @team = NflsBest::Team.find_by_name(input)
@@ -48,7 +58,7 @@ class NflsBest::CLI
     def my_player
         input = nil
         while input != "exit"
-            puts "Enter your player to find rank then enter exit when done:"
+            puts "Enter your player's name to discover their rank then enter exit when done:"
 
             input = gets.strip.downcase
             @player = NflsBest::Player.find_by_name(input)
@@ -68,6 +78,14 @@ class NflsBest::CLI
     end
 
     def goodbye
-        puts "It Takes All Of Us: End Racism"
+        puts "*****************************************************************"
+        puts "***                                                           ***"
+        puts "***                                                           ***"
+        puts "***    'Football is like life. It requires perseverance,      ***"
+        puts "***             self-denial, hard work, sacrifice,            ***"
+        puts "***   dedication, and respect for authority.' –Vince Lombardi ***"
+        puts "***                                                           ***"
+        puts "***                                                           ***"
+        puts "*****************************************************************"
     end
 end

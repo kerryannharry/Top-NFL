@@ -20,7 +20,7 @@ class Scraper
             player_rank = player.css("div.nfl-o-ranked-item__label").text.strip.gsub(/[\s\n\D]/,"")
             player_name = player.css("div.nfl-o-ranked-item__title").text.strip
             player_team = player.css("div.nfl-o-ranked-item__info").text.split("·")[0].strip
-            player_bio = doc.css("div.nfl-c-body-part--text").text
+            player_bio = player.css("div.nfl-c-body-part--text").text
             team_instance = NflsBest::Team.find_or_create_by_name(player_team)
             NflsBest::Player.new(player_name, player_rank, team_instance, player_bio)
             
