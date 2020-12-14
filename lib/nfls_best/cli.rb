@@ -36,8 +36,9 @@ class NflsBest::CLI
 
     def my_team
         input = nil
-        while input != "exit"
-            puts "Enter your team's name to dicover their rank then enter exit when done:"
+        while input != "next"
+            puts "Enter your team's name to dicover their rank then enter" 
+            puts "          next to discover your top player:            "
             
             input = gets.strip.downcase
             @team = NflsBest::Team.find_by_name(input)
@@ -46,6 +47,9 @@ class NflsBest::CLI
             else 
                 puts "Team not ranked."
              end
+
+             puts "Enter more to learn more about your top team!!!"
+        
         end
     end
 
@@ -67,6 +71,9 @@ class NflsBest::CLI
             else 
                 puts "Player not ranked."
              end
+
+             puts "Enter more to learn more about your top player!!!"
+
         end
      end
 
