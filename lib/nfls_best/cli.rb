@@ -37,18 +37,26 @@ class NflsBest::CLI
     def my_team
         input = nil
         while input != "next"
-            puts "Enter your team's name to dicover their rank then enter" 
-            puts "          next to discover your top player:            "
+            puts "   Enter your team's name to dicover their rank then enter,   " 
+            puts "             next to discover your top player,                "
+            puts "     or top teams for a list of the Top 10 teams ranked:      "
             
             input = gets.strip.downcase
             @team = NflsBest::Team.find_by_name(input)
             if @team != nil 
                 display_team_data
-            else 
+            elsif input.downcase == "top teams"
+                NflsBest::Team.display_teams
+            else input.downcase != "next"
                 puts "Team not ranked."
              end
 
-             puts "Enter more to learn more about your top team!!!"
+             if input == "next"
+                break
+             end
+
+
+             puts "         Enter more to learn more about your top team!!!"
         
         end
     end
@@ -62,17 +70,24 @@ class NflsBest::CLI
     def my_player
         input = nil
         while input != "exit"
-            puts "Enter your player's name to discover their rank then enter exit when done:"
+            puts "   Enter your player's name to discover their rank   "
+            puts "          or top players for Top 10 Players          "
+            puts "             then enter exit when done:              "
 
             input = gets.strip.downcase
             @player = NflsBest::Player.find_by_name(input)
             if @player != nil 
                 display_player_data
-            else 
+            elsif input.downcase == "top players"
+                NflsBest::Player.display_players
+            else input.downcase != "exit"
                 puts "Player not ranked."
              end
+             if input.downcase == "exit"
+                break
+             end
 
-             puts "Enter more to learn more about your top player!!!"
+             puts " Enter more to learn more about your top player!!!"
 
         end
      end
