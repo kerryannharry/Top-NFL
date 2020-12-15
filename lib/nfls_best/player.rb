@@ -1,5 +1,5 @@
 class NflsBest::Player
-    attr_accessor :name, :rank, :team, :bio
+    attr_accessor :name, :rank, :team, :bio, :height, :weight, :college, :experience, :position
 
     @@all = []
 
@@ -7,7 +7,7 @@ class NflsBest::Player
         @@all
     end
 
-    def initialize(name, rank, team, bio)
+    def initialize(name, rank = nil, team = nil, bio = nil)
         self.name = name
         self.rank = rank
         self.team = team

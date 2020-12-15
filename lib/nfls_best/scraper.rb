@@ -9,8 +9,31 @@ class Scraper
             team_rank = team.css("div.nfl-o-ranked-item__label").text.strip.gsub(/[\s\n\D]/,"")
             team_name = team.css("div.nfl-o-ranked-item__title").text.strip
             team_description = nil
-            NflsBest::Team.new(team_name, team_rank, team_description)
+            team = NflsBest::Team.new(team_name, team_rank, team_description)
+            get_team_roster(team)
         end
+    end
+    def self.get_team_roster(team)
+        url = "https://www.nfl.com/teams/#{team.name.downcase.gsub(" ","-")}/roster"
+        html = URI.open(url)
+        doc = Nokogiri::HTML(html)
+        rows = doc.css("#main-content > section:nth-child(5) > div > div:nth-child(2) > div > div.d3-o-table--horizontal-scroll > table > tbody tr")
+        rows.each do |row|
+            player_name = row.css("td a").text
+            player_position = row.css("td")[2].text
+            player_height =  row.css("td")[4].text
+            player_weight =  row.css("td")[5].text
+            player_experience =  row.css("td")[6].text
+            player_college =  row.css("td")[7].text
+            player = NflsBest::Player.find_or_create_by_name(player_name)
+            player.position = player_position
+            player.height = player_height
+            player.weight = player_weight
+            player.experience = player_experience
+            player.college = player_college
+            player.team = team
+        end
+        
     end
     def self.top_players
         html = URI.open(PLAYERS_URL)
@@ -20,7 +43,7 @@ class Scraper
             player_rank = player.css("div.nfl-o-ranked-item__label").text.strip.gsub(/[\s\n\D]/,"")
             player_name = player.css("div.nfl-o-ranked-item__title").text.strip
             player_team = player.css("div.nfl-o-ranked-item__info").text.split("·")[0].strip
-            player_bio = player.css("div.nfl-c-body-part--text").text.strip.gsub(/[\n]/,"")
+            player_bio = player.css("div.nfl-c-body-part--text > p:nth-child(1)").text.strip
             team_instance = NflsBest::Team.find_or_create_by_name(player_team)
             NflsBest::Player.new(player_name, player_rank, team_instance, player_bio)
             

@@ -3,9 +3,7 @@ class NflsBest::CLI
     def start
     welcome
     my_team
-    teams
     my_player
-    players
     goodbye
     end
     def welcome
@@ -36,35 +34,36 @@ class NflsBest::CLI
 
     def my_team
         input = nil
-        while input != "next"
+        while input != "exit"
             puts "   Enter your team's name to dicover their rank then enter,   " 
-            puts "             next to discover your top player,                "
-            puts "     or top teams for a list of the Top 10 teams ranked:      "
+            puts "             'next' to discover your top player,                "
+            puts "     or 'top teams' for a list of the Top 10 teams ranked:      "
             
             input = gets.strip.downcase
             @team = NflsBest::Team.find_by_name(input)
+
             if @team != nil 
                 display_team_data
             elsif input.downcase == "top teams"
-                NflsBest::Team.display_teams
-            else input.downcase != "next"
+                teams
+            elsif input.downcase == "next"
+                my_player
+               break
+            elsif input.downcase == "exit"
+                goodbye
+                exit(true)
+            else
                 puts "Team not ranked."
-             end
-
-             if input == "next"
-                break
-             end
-
-
-             puts "         Enter more to learn more about your top team!!!"
+            end
         
         end
     end
 
     def display_team_data
-        puts @team.name
-        puts @team.rank
-        puts @team.description
+        puts "Name: "+@team.name
+        puts "Rank: "+@team.rank
+        @team.display_roster
+        # puts "         Enter more to learn more about your top team!!!"
     end
 
     def my_player
@@ -79,24 +78,24 @@ class NflsBest::CLI
             if @player != nil 
                 display_player_data
             elsif input.downcase == "top players"
-                NflsBest::Player.display_players
-            else input.downcase != "exit"
+                players
+            elsif input.downcase == "exit"
+                goodbye
+                exit(true)
+            else
                 puts "Player not ranked."
              end
-             if input.downcase == "exit"
-                break
-             end
+             
 
-             puts " Enter more to learn more about your top player!!!"
+            #  puts " Enter more to learn more about your top player!!!"
 
         end
      end
 
      def display_player_data
-        puts @player.name
-        puts @player.rank
-        puts @player.team
-        puts @player.bio
+        puts "Name: "+@player.name
+    
+        
     end
 
     def goodbye
