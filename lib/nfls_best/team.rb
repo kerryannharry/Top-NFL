@@ -30,9 +30,9 @@ attr_accessor :name, :rank, :description
         end
     end
 
-    def self.display_grid_of_teams(team)
+    def self.display_grid_of_teams(teams)
         teams_table = TTY::Table.new(header: ["Rank", "Team Name"])
-        team.each.with_index(1) do |team, rank| 
+        teams.each.with_index(1) do |team, rank| 
             teams_table << ["#{team.rank}".red, "#{team.name}"]
         end
         puts teams_table.render(:unicode)

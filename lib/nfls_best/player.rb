@@ -15,10 +15,28 @@ class NflsBest::Player
         self.class.all << self 
     end
 
-    def self.display_players
-        all.sort_by {|p| p.rank.to_i}.each do |player| 
-            puts "#{player.rank}. #{player.name}"
+    def display_player_info
+        table = TTY::Table.new(header: [ "Name", "Position", "Height", "Weight", "Experience", "College", "Team"])
+            table << ["#{self.name}", "#{self.position}", "#{self.height}", "#{self.weight}", "#{self.experience}", "#{self.college}", "#{self.team.name}"]
+        puts table.render(:unicode)
+    end
+
+    def self.display_top_players
+        top_players = self.all.select{|player| player.rank != nil}
+        player_table = TTY::Table.new(header: ["Id", "Name"])
+        top_players.each.with_index(1) do |player, i| 
+            player_table << ["#{i}".red, "#{player.name}"]
         end
+        puts player_table.render(:unicode)
+    end
+
+    def self.display_players(team)
+        team_players = self.all.select{|player| player.team == team}
+        player_table = TTY::Table.new(header: ["Id", "Name"])
+        team_player.each.with_index(1) do |player, i| 
+            player_table << ["#{i}".red, "#{player.name}"]
+        end
+        puts player_table.render(:unicode)
     end
 
     def self.find_by_name(name)

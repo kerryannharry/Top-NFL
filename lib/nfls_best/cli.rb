@@ -2,6 +2,7 @@ class NflsBest::CLI
 
     def start
     welcome
+    teams
     my_team
     my_player
     goodbye
@@ -24,7 +25,7 @@ class NflsBest::CLI
 
     def teams
     puts "NFL's Top Teams"
-    NflsBest::Team.display_teams
+    NflsBest::Team.display_grid_of_teams(@teams)
     end
 
     def players
@@ -35,17 +36,16 @@ class NflsBest::CLI
     def my_team
         input = nil
         while input != "exit"
-            puts "   Enter your team's name to dicover their rank then enter,   " 
-            puts "             'next' to discover your top player,                "
-            puts "     or 'top teams' for a list of the Top 10 teams ranked:      "
-            
+            puts "   Enter a team name listed above to find out more or  " 
+            puts "             'next' to discover the top player.                "
             input = gets.strip.downcase
             @team = NflsBest::Team.find_by_name(input)
 
             if @team != nil 
                 display_team_data
-            elsif input.downcase == "top teams"
-                teams
+            # elsif input.downcase == "top teams"
+            #     teams
+                # puts "type the number of the team you'd like to know more about or 'next' to discover your top player or 'exit' to exit: "
             elsif input.downcase == "next"
                 my_player
                break
@@ -53,7 +53,7 @@ class NflsBest::CLI
                 goodbye
                 exit(true)
             else
-                puts "Team not ranked."
+                puts "Wrong input"
             end
         
         end
@@ -69,19 +69,21 @@ class NflsBest::CLI
     def my_player
         input = nil
         while input != "exit"
-            puts "   Enter your player's name to discover their rank   "
+            puts "   Enter your player's name from a top 10 team to know more   "
             puts "          or top players for Top 10 Players          "
-            puts "             then enter exit when done:              "
+            puts "            or back to restart or enter exit if done:              "
 
             input = gets.strip.downcase
             @player = NflsBest::Player.find_by_name(input)
             if @player != nil 
                 display_player_data
             elsif input.downcase == "top players"
-                players
+                NflsBest::Player.display_top_players
             elsif input.downcase == "exit"
                 goodbye
                 exit(true)
+            elsif input.downcase == "back"
+                start
             else
                 puts "Player not ranked."
              end
@@ -93,8 +95,7 @@ class NflsBest::CLI
      end
 
      def display_player_data
-        puts "Name: "+@player.name
-    
+        @player.display_player_info
         
     end
 

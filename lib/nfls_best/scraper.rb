@@ -2,6 +2,7 @@ class Scraper
     URL = "https://www.nfl.com/news/2020-nfl-season-saints-falcons-headline-10-most-talented-teams"
     PLAYERS_URL = "https://www.nfl.com/news/top-100-players-patrick-mahomes-at-no-4-let-s-re-rank-the-top-10"
     def self.top_teams
+        teams = []
         html = URI.open(URL)
         doc = Nokogiri::HTML(html)
         teams_info = doc.css("#main-content > article > div:nth-child(2) > div div.d3-l-col__col-8 div.nfl-o-ranked-item")
@@ -10,8 +11,17 @@ class Scraper
             team_name = team.css("div.nfl-o-ranked-item__title").text.strip
             team_description = nil
             team = NflsBest::Team.new(team_name, team_rank, team_description)
+            teams << team
             get_team_roster(team)
         end
+        return teams
+    end
+    def self.get_player_info
+        players_url = "https://www.nfl.com/players/#{player.name.downcase.gsub(" ","-")}/"
+        html = URI.open(players_url)
+        doc = Nokogiri::HTML(html)
+        binding.pry
+        line = doc.css("#main-content > section:nth-child(4) > div > div.d3-l-col__col-8 > section > div > div > div > section > div > div.d3-l-col__col-12.nfl-c-player-info__content")
     end
     def self.get_team_roster(team)
         url = "https://www.nfl.com/teams/#{team.name.downcase.gsub(" ","-")}/roster"
@@ -50,4 +60,5 @@ class Scraper
         end
     
     end
+
 end
