@@ -54,7 +54,7 @@ class NflsBest::CLI
                 goodbye
                 exit(true)
             else
-                puts "Wrong input"
+                puts "   " + "Wrong input".red + "   "
             end
         
         end
