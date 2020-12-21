@@ -86,7 +86,7 @@ class NflsBest::CLI
             elsif input.downcase == "back"
                 start
             else
-                puts "Player not ranked."
+                puts " " + "Player not ranked.".red + " "
              end
         end
      end
