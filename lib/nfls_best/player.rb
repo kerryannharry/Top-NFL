@@ -17,7 +17,7 @@ class NflsBest::Player
 
     def display_player_info
         table = TTY::Table.new(header: [ "Name", "Position", "Height", "Weight", "Experience", "College", "Team"])
-            table << ["#{self.name}", "#{self.position}", "#{self.height}", "#{self.weight}", "#{self.experience}", "#{self.college}", "#{self.team.name}"]
+            table << ["#{self.name}".blue, "#{self.position}", "#{self.height}", "#{self.weight}", "#{self.experience}", "#{self.college}", "#{self.team.name}".red]
         puts table.render(:unicode)
     end
 

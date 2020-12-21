@@ -20,7 +20,7 @@ attr_accessor :name, :rank, :description
     def display_roster
         roster = TTY::Table.new(header: ["Id", "Name", "Position", "Height", "Weight", "Experience", "College"])
         self.players.each.with_index(1) do |player, i| 
-            roster << ["#{i}".red, "#{player.name}", "#{player.position}", "#{player.height}", "#{player.weight}", "#{player.experience}", "#{player.college}"]
+            roster << ["#{i}".red, "#{player.name}".blue, "#{player.position}", "#{player.height}", "#{player.weight}", "#{player.experience}", "#{player.college}"]
         end
         puts roster.render(:unicode)
     end
