@@ -16,13 +16,13 @@ class Scraper
         end
         return teams
     end
-    def self.get_player_info
-        players_url = "https://www.nfl.com/players/#{player.name.downcase.gsub(" ","-")}/"
-        html = URI.open(players_url)
-        doc = Nokogiri::HTML(html)
-        binding.pry
-        line = doc.css("#main-content > section:nth-child(4) > div > div.d3-l-col__col-8 > section > div > div > div > section > div > div.d3-l-col__col-12.nfl-c-player-info__content")
-    end
+    # def self.get_player_info
+    #     players_url = "https://www.nfl.com/players/#{player.name.downcase.gsub(" ","-")}/"
+    #     html = URI.open(players_url)
+    #     doc = Nokogiri::HTML(html)
+      
+    #     line = doc.css("#main-content > section:nth-child(4) > div > div.d3-l-col__col-8 > section > div > div > div > section > div > div.d3-l-col__col-12.nfl-c-player-info__content")
+    # end
     def self.get_team_roster(team)
         url = "https://www.nfl.com/teams/#{team.name.downcase.gsub(" ","-")}/roster"
         html = URI.open(url)

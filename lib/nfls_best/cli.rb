@@ -37,7 +37,8 @@ class NflsBest::CLI
         input = nil
         while input != "exit"
             puts "   Enter a team name listed above to find out more or  " 
-            puts "             'next' to discover the top player.                "
+            puts "             " + "next".blue + " to discover the top player               "
+            puts "                    or " + "exit".blue + " to exit. "
             input = gets.strip.downcase
             @team = NflsBest::Team.find_by_name(input)
 
@@ -70,8 +71,8 @@ class NflsBest::CLI
         input = nil
         while input != "exit"
             puts "   Enter your player's name from a top 10 team to know more   "
-            puts "          or top players for Top 10 Players          "
-            puts "            or back to restart or enter exit if done:              "
+            puts "          or " + "top players".blue + " for Top 10 Players          "
+            puts "            or " + "back".blue + " to restart or enter " + "exit".blue + " if done:              "
 
             input = gets.strip.downcase
             @player = NflsBest::Player.find_by_name(input)
@@ -87,10 +88,6 @@ class NflsBest::CLI
             else
                 puts "Player not ranked."
              end
-             
-
-            #  puts " Enter more to learn more about your top player!!!"
-
         end
      end
 
