@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
 require "bundler/setup"
-require "nfls_best"
+require_relative "../lib/nfls_best.rb"
 
 NflsBest::CLI.new.start

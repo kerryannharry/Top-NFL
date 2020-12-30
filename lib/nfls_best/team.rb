@@ -22,7 +22,7 @@ attr_accessor :name, :rank, :description
         self.players.each.with_index(1) do |player, i| 
             roster << ["#{i}".red, "#{player.name}".blue, "#{player.position}", "#{player.height}", "#{player.weight}", "#{player.experience}", "#{player.college}"]
         end
-        puts roster.render(:unicode)
+        roster.render(:unicode)
     end
 
     def self.display_grid_of_teams(teams)
@@ -30,7 +30,11 @@ attr_accessor :name, :rank, :description
         teams.each.with_index(1) do |team, rank| 
             teams_table << ["#{team.rank}".red, "#{team.name}"]
         end
-        puts teams_table.render(:unicode)
+        teams_table.render(:unicode)
+    end
+
+    def self.select_ranked_teams
+        all.select {|team| team.rank != "not top 10" }
     end
 
     def self.find_by_name(name)

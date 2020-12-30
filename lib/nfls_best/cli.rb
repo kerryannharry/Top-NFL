@@ -8,6 +8,8 @@ class NflsBest::CLI
     goodbye
     end
     def welcome
+        @teams = NflsBest::Team.all.size == 0 ? Scraper.top_teams :  NflsBest::Team.select_ranked_teams
+        @players = NflsBest::Player.select_ranked_players.size == 0 ?  Scraper.top_players :  NflsBest::Player.all
         puts "*****************************************************************"
         puts "***                                                           ***"
         puts "***                                                           ***"
@@ -19,18 +21,17 @@ class NflsBest::CLI
         puts "***        determines how well you do it.' –Lou Holtz         ***"
         puts "***                                                           ***"
         puts "*****************************************************************"
-        @teams = Scraper.top_teams
-        @players = Scraper.top_players
+        
     end
 
     def teams
     puts "NFL's Top Teams"
-    NflsBest::Team.display_grid_of_teams(@teams)
+    puts NflsBest::Team.display_grid_of_teams(@teams)
     end
 
     def players
         puts "NFL'S Top Players"
-        NflsBest::Player.display_players
+        puts NflsBest::Player.display_players
     end
 
     def my_team
@@ -63,7 +64,7 @@ class NflsBest::CLI
     def display_team_data
         puts "Name: "+@team.name
         puts "Rank: "+@team.rank
-        @team.display_roster
+        puts @team.display_roster
         # puts "         Enter more to learn more about your top team!!!"
     end
 
@@ -76,15 +77,17 @@ class NflsBest::CLI
 
             input = gets.strip.downcase
             @player = NflsBest::Player.find_by_name(input)
+
             if @player != nil 
                 display_player_data
             elsif input.downcase == "top players"
-                NflsBest::Player.display_top_players
+              puts NflsBest::Player.display_top_players
             elsif input.downcase == "exit"
                 goodbye
                 exit(true)
             elsif input.downcase == "back"
-                start
+                teams
+                my_team
             else
                 puts " " + "Player not ranked.".red + " "
              end
@@ -92,7 +95,7 @@ class NflsBest::CLI
      end
 
      def display_player_data
-        @player.display_player_info
+       puts @player.display_player_info
         
     end
 
