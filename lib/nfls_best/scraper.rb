@@ -6,14 +6,14 @@ class Scraper
         html = URI.open(URL)
         doc = Nokogiri::HTML(html)
         teams_info = doc.css("#main-content > article > div:nth-child(2) > div div.d3-l-col__col-8 div.nfl-o-ranked-item")
-        teams_info.map do |team|
+        teams_info.each do |team|
             team_rank = team.css("div.nfl-o-ranked-item__label").text.strip.gsub(/[\s\n\D]/,"")
             team_name = team.css("div.nfl-o-ranked-item__title").text.strip
             team_description = nil
             team = NflsBest::Team.new(team_name, team_rank, team_description)
             # teams << team
-            get_team_roster(team)
-            team
+            # get_team_roster(team)
+            # team
         end
         # return teams
     end
