@@ -8,7 +8,8 @@ class NflsBest::CLI
     goodbye
     end
     def welcome
-        @teams = NflsBest::Team.all.size == 0 ? Scraper.top_teams :  NflsBest::Team.select_ranked_teams
+        Scraper.top_teams if NflsBest::Team.all.size == 0
+        @teams = NflsBest::Team.select_ranked_teams
         @players = NflsBest::Player.select_ranked_players.size == 0 ?  Scraper.top_players :  NflsBest::Player.all
         puts "*****************************************************************"
         puts "***                                                           ***"
@@ -42,7 +43,7 @@ class NflsBest::CLI
             puts "                    or " + "exit".blue + " to exit. "
             input = gets.strip.downcase
             @team = NflsBest::Team.find_by_name(input)
-
+            # Scraper.get_team_roster(@team)
             if @team != nil 
                 display_team_data
             # elsif input.downcase == "top teams"

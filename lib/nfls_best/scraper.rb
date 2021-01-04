@@ -12,7 +12,7 @@ class Scraper
             team_description = nil
             team = NflsBest::Team.new(team_name, team_rank, team_description)
             # teams << team
-            # get_team_roster(team)
+            get_team_roster(team)
             # team
         end
         # return teams
